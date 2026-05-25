@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  trustedchain:
+    build: .
+    image: trustedchain:latest
+    container_name: trustedchain
+    ports:
+      - "4173:4173"
+    environment:
+      - PORT=4173
+      - HOST=0.0.0.0
+      - TRUSTCHAIN_ADMIN_USER=${TRUSTCHAIN_ADMIN_USER:-admin}
+      - TRUSTCHAIN_ADMIN_PASS=${TRUSTCHAIN_ADMIN_PASS:-changeme}
+      - TRUSTCHAIN_API_TOKEN=${TRUSTCHAIN_API_TOKEN:-}
+      - TRUSTCHAIN_USE_FAST_MODEL=${TRUSTCHAIN_USE_FAST_MODEL:-true}
+      - TRUSTCHAIN_REMOTE_PREDICT_URL=${TRUSTCHAIN_REMOTE_PREDICT_URL:-}
+    volumes:
+      - uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:4173/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  uploads:
+    driver: local

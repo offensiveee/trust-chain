@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TrustedChain Admin Console - Telemetry and operational data" />
+  <title>TrustedChain | Admin Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">TC</div>
+        <div>
+          <p class="eyebrow">TrustedChain</p>
+          <h1>Admin Console</h1>
+        </div>
+      </div>
+      <nav class="desktop-nav">
+        <a href="index.html">Back to Site</a>
+      </nav>
+      <span class="pill success">Secure Session</span>
+    </header>
+
+    <main>
+      <section class="admin glass admin-page">
+        <div class="section__header">
+          <p class="eyebrow">Restricted Access</p>
+          <h3>Operational Telemetry</h3>
+          <p class="muted">Login to review visits, click counts, sources, and contact submissions.</p>
+        </div>
+
+        <form id="loginForm" class="login-form">
+          <div class="login-grid">
+            <div class="field">
+              <label for="adminUser">Username</label>
+              <input id="adminUser" name="username" type="text" placeholder="Enter username" required autocomplete="username" />
+            </div>
+            <div class="field">
+              <label for="adminPass">Password</label>
+              <input id="adminPass" name="password" type="password" placeholder="Enter password" required autocomplete="current-password" />
+            </div>
+            <button type="submit" class="primary">Authenticate</button>
+          </div>
+          <p id="loginStatus" class="muted" aria-live="polite"></p>
+        </form>
+
+        <div id="adminData" class="admin-data hidden" aria-live="polite">
+          <div class="section__header" style="margin-top: 20px;">
+            <p class="eyebrow">Live Metrics</p>
+            <h3>Session statistics</h3>
+          </div>
+          <div class="admin-stats">
+            <div class="stat">
+              <span class="value" id="visitCount">0</span>
+              <span class="label">Total visits</span>
+            </div>
+            <div class="stat">
+              <span class="value" id="clickCount">0</span>
+              <span class="label">Button/link clicks</span>
+            </div>
+            <div class="stat">
+              <span class="value" id="sourceCount">0</span>
+              <span class="label">Referral sources</span>
+            </div>
+          </div>
+
+          <div class="admin-grid">
+            <article class="card">
+              <h4>📁 Uploaded files</h4>
+              <p class="muted" style="font-size: 0.8125rem; margin-top: 0;">File metadata only - no content exposed</p>
+              <ul id="uploadList" class="list"></ul>
+            </article>
+            <article class="card">
+              <h4>📨 Contact submissions</h4>
+              <p class="muted" style="font-size: 0.8125rem; margin-top: 0;">Messages from landing page</p>
+              <ul id="contactList" class="list"></ul>
+            </article>
+            <article class="card">
+              <h4>📍 Visit sources</h4>
+              <p class="muted" style="font-size: 0.8125rem; margin-top: 0;">Referrers and traffic sources</p>
+              <ul id="sourceList" class="list"></ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <p class="eyebrow">TrustedChain Admin</p>
+        <p class="muted">Operational dashboard for TrustedChain certificate reputation system.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TrustedChain - Certificate Reputation System for Malware Detection" />
+  <title>TrustedChain | Certificate Reputation System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">TC</div>
+        <div>
+          <p class="eyebrow">TrustedChain</p>
+          <h1>Certificate Reputation System</h1>
+        </div>
+      </div>
+      <nav class="desktop-nav">
+        <a href="#workflow">Workflow</a>
+        <a href="#insights">Insights</a>
+        <a href="#sandbox">Sandbox</a>
+        <a href="#contact">Contact</a>
+        <a href="ml.html">ML Overview</a>
+        <a href="model.html">Model</a>
+        <a href="admin.html" class="nav-link-admin">Admin</a>
+      </nav>
+      <button class="ghost mobile-menu-btn" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <button class="ghost desktop-only" onclick="document.getElementById('sandbox').scrollIntoView({behavior: 'smooth'})">
+        Launch Console
+      </button>
+    </header>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav hidden">
+      <a href="#workflow">Workflow</a>
+      <a href="#insights">Insights</a>
+      <a href="#sandbox">Sandbox</a>
+      <a href="#contact">Contact</a>
+      <a href="ml.html">ML Overview</a>
+      <a href="model.html">Model</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">AI-Powered Malware Detection</p>
+          <h2>Stop malware by reading the story behind every certificate.</h2>
+          <p class="lead">
+            TrustedChain visualizes code-signing certificate reputation, blends historical issuer behavior with ML insights,
+            and flags risky binaries before they execute.
+          </p>
+          <div class="actions">
+            <button class="primary" onclick="document.getElementById('sandbox').scrollIntoView({behavior: 'smooth'})">
+              Start reputation scan
+            </button>
+            <button class="secondary" onclick="document.getElementById('insights').scrollIntoView({behavior: 'smooth'})">
+              View threat map
+            </button>
+            <a class="secondary" href="data-flow.html">View data flow</a>
+            <a class="secondary" href="ml.html">ML overview</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <span class="value">98.4%</span>
+              <span class="label">Malware caught pre-execution</span>
+            </div>
+            <div class="stat">
+              <span class="value">1.2M</span>
+              <span class="label">Certificates analyzed</span>
+            </div>
+            <div class="stat">
+              <span class="value"><span class="dot critical"></span> 37</span>
+              <span class="label">Active threats today</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel glass">
+          <div class="panel__header">
+            <div>
+              <p class="eyebrow">Realtime Reputation</p>
+              <h3>Trust score trajectory</h3>
+            </div>
+            <span class="pill success" title="Live data">
+              <span class="pulse"></span> Live
+            </span>
+          </div>
+          <div class="chart-container">
+            <canvas id="scoreChart" aria-label="Trust score chart over time"></canvas>
+          </div>
+          <div class="panel__footer">
+            <div>
+              <p class="eyebrow">Certificate</p>
+              <p class="mono">CN=Dev Portal, O=Acme Labs, US</p>
+            </div>
+            <div>
+              <p class="eyebrow">Model verdict</p>
+              <p class="pill neutral">Likely benign</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow" class="workflow glass">
+        <div class="section__header">
+          <p class="eyebrow">Pipeline</p>
+          <h3>How TrustedChain scores certificates</h3>
+          <p class="muted">Each step captures a behavioral fingerprint that feeds the ML model.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="icon">1</div>
+            <h4>Ingest</h4>
+            <p>Parse certificate chain, issuer lineage, and timestamped revocation signals from multiple sources.</p>
+          </div>
+          <div class="step">
+            <div class="icon">2</div>
+            <h4>Enrich</h4>
+            <p>Augment with OSINT, VirusTotal reputation, sandbox detonation history, and telemetry frequency.</p>
+          </div>
+          <div class="step">
+            <div class="icon">3</div>
+            <h4>Model</h4>
+            <p>Run gradient boosting + temporal embeddings to project trustworthiness over time.</p>
+          </div>
+          <div class="step">
+            <div class="icon">4</div>
+            <h4>Decide</h4>
+            <p>Issue allow/review/quarantine verdicts with confidence, then surface results to analysts and dashboards.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="insights" class="insights">
+        <div class="graph">
+          <div class="section__header">
+            <p class="eyebrow">Threat Clusters</p>
+            <h3>Issuer relationship graph</h3>
+          </div>
+          <div class="nodes" aria-label="Graph nodes showing certificate issuer relationships">
+            <div class="node critical">Untrusted Root</div>
+            <div class="node warning">Aggressive Issuer</div>
+            <div class="node">Partner CA</div>
+            <div class="node">Verified Supplier</div>
+            <svg viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="50" y1="100" x2="180" y2="80" />
+              <line x1="180" y1="80" x2="320" y2="60" />
+              <line x1="180" y1="80" x2="260" y2="150" />
+              <line x1="50" y1="100" x2="140" y2="150" />
+            </svg>
+          </div>
+          <p class="muted">Edges show certificate re-use and co-signing frequency. Red clusters indicate elevated malware prevalence.</p>
+        </div>
+
+        <div class="glass insight-card">
+          <div class="section__header">
+            <p class="eyebrow">Model Output</p>
+            <h3>Confidence distribution</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="confidenceChart" aria-label="Confidence histogram showing benign, review, and malicious classifications"></canvas>
+          </div>
+          <ul class="legend">
+            <li><span class="dot benign"></span>Benign</li>
+            <li><span class="dot warning"></span>Review</li>
+            <li><span class="dot critical"></span>Malicious</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="sandbox" class="sandbox glass">
+        <div class="sandbox-form">
+          <p class="eyebrow">Interactive Sandbox</p>
+          <h3>Submit a certificate for instant reputation verdict</h3>
+          <p class="muted">Paste SHA-256 fingerprint to preview model behavior and risk posture.</p>
+          <form id="verdictForm" class="form" novalidate>
+            <div class="field-group">
+              <label for="hash">Certificate fingerprint (SHA-256)</label>
+              <input id="hash" name="hash" type="text" placeholder="d9:ab:3c:..." required autocomplete="off" />
+            </div>
+
+            <div class="field-group">
+              <label for="issuer">Issuer</label>
+              <input id="issuer" name="issuer" type="text" placeholder="CN=Example CA, O=Example Org" autocomplete="off" />
+            </div>
+
+            <div class="field-group">
+              <label for="score">Observed trust score: <span id="scoreValue">62</span>/100</label>
+              <input id="score" name="score" type="range" min="0" max="100" value="62" step="1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" />
+            </div>
+
+            <button type="submit" class="primary full-width">Simulate verdict</button>
+          </form>
+        </div>
+        <div class="verdict">
+          <div class="badge" id="verdictBadge">Likely benign</div>
+          <p id="verdictText">No suspicious lineage detected. Monitor certificate reuse weekly.</p>
+          <div class="signals">
+            <div class="signal">
+              <p class="eyebrow">Signal</p>
+              <p id="signalName">Issuer reputation stable</p>
+            </div>
+            <div class="signal">
+              <p class="eyebrow">Action</p>
+              <p id="signalAction">Allowlist with alerting</p>
+            </div>
+            <div class="signal">
+              <p class="eyebrow">Confidence</p>
+              <p id="signalConfidence">0.83</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact glass">
+        <div class="section__header">
+          <p class="eyebrow">Contact Us</p>
+          <h3>Reach the TrustedChain team</h3>
+          <p class="muted">Share context, indicators, or questions. Submissions are routed to the admin console.</p>
+        </div>
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="contact-grid">
+            <div class="field">
+              <label for="contactName">Name</label>
+              <input id="contactName" name="name" type="text" placeholder="Analyst name" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="contactEmail">Email</label>
+              <input id="contactEmail" name="email" type="email" placeholder="analyst@trustchain.ai" required autocomplete="email" />
+            </div>
+            <div class="field wide">
+              <label for="contactSubject">Subject</label>
+              <input id="contactSubject" name="subject" type="text" placeholder="Incident context or question" required autocomplete="off" />
+            </div>
+            <div class="field wide">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" name="message" rows="4" placeholder="Provide indicators, timelines, or requested actions." required></textarea>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <button type="submit" class="primary">Send message</button>
+            <p id="contactStatus" class="muted" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>
+        <p class="eyebrow">TrustedChain</p>
+        <p class="muted">Built for defenders who need quick, visual explanations from their certificate ML models.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">API Docs</a>
+        <a href="#">Data Sources</a>
+        <a href="#">Security</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

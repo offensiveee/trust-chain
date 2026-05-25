@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TrustedChain Machine Learning Research" />
+  <title>TrustedChain | Machine Learning Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .research-content { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+    .research-section { margin: 48px 0; }
+    .research-section h2 { font-size: 1.75rem; margin-bottom: 16px; border-bottom: 2px solid var(--border); padding-bottom: 8px; word-wrap: break-word; }
+    .research-section h3 { font-size: 1.25rem; margin-top: 32px; margin-bottom: 12px; word-wrap: break-word; }
+    .research-section p { line-height: 1.8; margin-bottom: 16px; color: var(--muted); word-wrap: break-word; }
+    .research-table { width: 100%; border-collapse: collapse; margin: 24px 0; background: rgba(255,255,255,0.04); border-radius: 12px; overflow-x: auto; display: block; }
+    .research-table table { width: 100%; min-width: 600px; }
+    .research-table th { background: rgba(255,255,255,0.08); padding: 12px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    .research-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    .research-table tr:last-child td { border-bottom: none; }
+    .plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
+    .plot-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-sizing: border-box; }
+    .plot-card img { width: 100%; height: auto; border-radius: 8px; display: block; }
+    .plot-card h4 { margin: 12px 0 8px; font-size: 0.95rem; word-wrap: break-word; }
+    .model-section { margin: 48px 0; padding: 24px; background: rgba(255,255,255,0.02); border-left: 4px solid var(--primary); border-radius: 8px; box-sizing: border-box; }
+    .metric-highlight { color: var(--primary); font-weight: 700; }
+    ul.research-list { line-height: 1.8; color: var(--muted); padding-left: 20px; word-wrap: break-word; }
+    
+    @media (max-width: 768px) {
+      .research-content { padding: 0 12px; }
+      .research-section { margin: 32px 0; }
+      .research-section h2 { font-size: 1.5rem; }
+      .research-section h3 { font-size: 1.1rem; margin-top: 24px; }
+      .research-section p { font-size: 0.95rem; line-height: 1.7; }
+      .research-table th, .research-table td { padding: 8px 6px; font-size: 0.75rem; }
+      .plot-grid { grid-template-columns: 1fr; gap: 16px; }
+      .model-section { padding: 16px; margin: 32px 0; }
+      .flow-content { margin-top: 16px; }
+      ul.research-list { font-size: 0.95rem; padding-left: 16px; }
+    }
+    
+    @media (max-width: 480px) {
+      .research-section h2 { font-size: 1.25rem; }
+      .research-section h3 { font-size: 1rem; }
+      .research-section p { font-size: 0.9rem; }
+      .research-table { font-size: 0.7rem; }
+      .model-section { padding: 12px; }
+    }
+    
+    .glass { box-sizing: border-box; overflow: hidden; }
+    .flow-hero, .flow-section { box-sizing: border-box; }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">TC</div>
+        <div>
+          <p class="eyebrow">TrustedChain</p>
+          <h1>Machine Learning Research</h1>
+        </div>
+      </div>
+      <nav class="desktop-nav">
+        <a href="index.html">Home</a>
+        <a href="#abstract">Abstract</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#results">Results</a>
+        <a href="#discussion">Discussion</a>
+      </nav>
+    </header>
+
+    <main class="research-content">
+      <section id="abstract" class="research-section glass" style="padding: 32px; margin-top: 32px;">
+        <h2>Abstract</h2>
+        <p>
+          Code-signing certificates are frequently abused by malware authors to distribute malicious binaries under the guise of legitimate software.
+          Traditional signature-based detection fails when attackers use valid, stolen, or compromised certificates. This work presents <strong>TrustedChain</strong>,
+          a machine learning system that evaluates certificate reputation by analyzing cryptographic properties, issuer behavior, and historical malware associations.
+        </p>
+        <p>
+          We evaluate eight classification models on a dataset of 5 million labeled certificates (benign, suspicious, malicious) and achieve
+          <span class="metric-highlight">97.3% accuracy</span> with gradient boosting methods. Our system demonstrates that certificate-level features
+          can effectively predict malware risk before binary execution, providing a proactive defense layer for endpoint security.
+        </p>
+      </section>
+
+      <section id="introduction" class="research-section">
+        <h2>1. Introduction</h2>
+        <p>
+          Malware detection traditionally relies on file hashes, behavioral analysis, or static signatures. However, attackers increasingly use
+          <strong>code-signing certificates</strong> to bypass security controls. Valid certificates allow binaries to execute with elevated trust,
+          making certificate reputation analysis a critical component of modern threat detection.
+        </p>
+        <p>
+          Our approach focuses on <em>certificate-level features</em> rather than file-level analysis, enabling early detection based on:
+        </p>
+        <ul class="research-list">
+          <li>Cryptographic algorithm choices (signature and public key algorithms)</li>
+          <li>Certificate authority (CA) issuer patterns and lineage</li>
+          <li>Public key properties (size, algorithm, vulnerabilities like ROCA)</li>
+          <li>Certificate extensions (can_issue, pathlen constraints)</li>
+        </ul>
+      </section>
+
+      <section id="dataset" class="research-section">
+        <h2>2. Dataset</h2>
+        <p>
+          We trained models on a curated dataset of <strong>5 million certificates</strong> sourced from certificate transparency logs (crt.sh)
+          and malware telemetry feeds. Each certificate was labeled into one of three classes:
+        </p>
+        <ul class="research-list">
+          <li><strong>Benign</strong>: Certificates from verified, trusted issuers with no malware associations</li>
+          <li><strong>Suspicious</strong>: Certificates with mixed signals (e.g., unusual crypto choices, new issuers)</li>
+          <li><strong>Malicious</strong>: Certificates confirmed to have signed malware samples</li>
+        </ul>
+        <p><strong>Features extracted:</strong></p>
+        <ul class="research-list">
+          <li><code>signature_hash_algo</code>: Hash algorithm used for certificate signature</li>
+          <li><code>signature_key_algo</code>: Public key algorithm for signature verification</li>
+          <li><code>public_key_algo</code>: Algorithm used for the certificate's public key</li>
+          <li><code>public_key_size</code>: Bit size of the public key</li>
+          <li><code>can_issue</code>: Whether the certificate can issue other certificates (CA flag)</li>
+          <li><code>pathlen</code>: Maximum certificate chain depth</li>
+          <li><code>has_roca</code>: Vulnerable to ROCA (Return of Coppersmith's Attack)</li>
+        </ul>
+      </section>
+
+      <section id="methodology" class="research-section">
+        <h2>3. Methodology</h2>
+        <h3>3.1 Models Evaluated</h3>
+        <p>
+          We compared eight supervised learning models across tree ensembles, boosting methods, and neural networks:
+        </p>
+        <ul class="research-list">
+          <li><strong>Logistic Regression</strong>: Linear baseline for interpretability</li>
+          <li><strong>Random Forest</strong>: Ensemble of decision trees with bagging</li>
+          <li><strong>Extra Trees</strong>: Randomized decision trees for noise robustness</li>
+          <li><strong>Gradient Boosting</strong>: Sequential boosting (sklearn)</li>
+          <li><strong>HistGradientBoosting</strong>: Histogram-based gradient boosting (sklearn)</li>
+          <li><strong>XGBoost</strong>: Optimized gradient boosting library</li>
+          <li><strong>LightGBM</strong>: Microsoft's gradient boosting framework</li>
+          <li><strong>MLP</strong>: Multi-layer perceptron (neural network)</li>
+        </ul>
+        <h3>3.2 Training Procedure</h3>
+        <p>
+          All models were trained with 5-fold cross-validation. Evaluation metrics included:
+        </p>
+        <ul class="research-list">
+          <li><strong>Accuracy</strong>: Overall classification correctness</li>
+          <li><strong>Precision (macro)</strong>: Average precision across classes</li>
+          <li><strong>Recall (macro)</strong>: Average recall across classes</li>
+          <li><strong>F1 Score (macro)</strong>: Harmonic mean of precision and recall</li>
+          <li><strong>ROC AUC</strong>: Area under ROC curve (one-vs-rest)</li>
+        </ul>
+        <h3>3.3 Clustering Analysis</h3>
+        <p>
+          We performed unsupervised clustering (KMeans with k=5) to identify natural groupings in certificate behavior, achieving a silhouette score of <span class="metric-highlight">0.9985</span>.
+        </p>
+      </section>
+
+      <section id="results" class="research-section">
+        <h2>4. Results</h2>
+        <h3>4.1 Model Comparison</h3>
+        <p>
+          Table 1 summarizes performance across all models. Gradient boosting methods (GradientBoosting, HistGradientBoosting, XGBoost, LightGBM)
+          achieved the highest accuracy and ROC AUC scores.
+        </p>
+        <div class="research-table">
+          <table>
+            <thead>
+            <tr>
+              <th>Model</th>
+              <th>Accuracy</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1</th>
+              <th>ROC AUC</th>
+              <th>Train Time (s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Logistic Regression</td>
+              <td>0.9047</td>
+              <td>0.5955</td>
+              <td>0.7178</td>
+              <td>0.6011</td>
+              <td>0.8809</td>
+              <td>17.56</td>
+            </tr>
+            <tr>
+              <td>Random Forest</td>
+              <td>0.9073</td>
+              <td>0.5968</td>
+              <td>0.7189</td>
+              <td>0.6025</td>
+              <td>0.8813</td>
+              <td>3.01</td>
+            </tr>
+            <tr style="background: rgba(126, 244, 192, 0.08);">
+              <td><strong>Gradient Boosting</strong></td>
+              <td><strong>0.9732</strong></td>
+              <td><strong>0.6563</strong></td>
+              <td><strong>0.6140</strong></td>
+              <td><strong>0.6328</strong></td>
+              <td><strong>0.8824</strong></td>
+              <td>19.86</td>
+            </tr>
+            <tr style="background: rgba(126, 244, 192, 0.08);">
+              <td><strong>HistGradientBoosting</strong></td>
+              <td><strong>0.9732</strong></td>
+              <td><strong>0.6563</strong></td>
+              <td><strong>0.6140</strong></td>
+              <td><strong>0.6328</strong></td>
+              <td><strong>0.8824</strong></td>
+              <td>4.38</td>
+            </tr>
+            <tr>
+              <td>Extra Trees</td>
+              <td>0.9073</td>
+              <td>0.5968</td>
+              <td>0.7189</td>
+              <td>0.6025</td>
+              <td>0.8801</td>
+              <td>2.95</td>
+            </tr>
+            <tr>
+              <td>MLP</td>
+              <td>0.9478</td>
+              <td>0.5945</td>
+              <td>0.6240</td>
+              <td>0.6078</td>
+              <td>0.7431</td>
+              <td>54.04</td>
+            </tr>
+            <tr style="background: rgba(126, 244, 192, 0.08);">
+              <td><strong>XGBoost</strong></td>
+              <td><strong>0.9731</strong></td>
+              <td><strong>0.6562</strong></td>
+              <td><strong>0.6138</strong></td>
+              <td><strong>0.6327</strong></td>
+              <td><strong>0.8823</strong></td>
+              <td>5.51</td>
+            </tr>
+            <tr style="background: rgba(126, 244, 192, 0.08);">
+              <td><strong>LightGBM</strong></td>
+              <td><strong>0.9732</strong></td>
+              <td><strong>0.6563</strong></td>
+              <td><strong>0.6140</strong></td>
+              <td><strong>0.6328</strong></td>
+              <td><strong>0.8824</strong></td>
+              <td>4.14</td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); font-style: italic;">
+          Table 1: Performance comparison of classification models. Highlighted rows indicate top-performing gradient boosting methods.
+        </p>
+
+        <h3>4.2 Detailed Model Results</h3>
+
+        <div class="model-section">
+          <h3>Gradient Boosting (Best Overall)</h3>
+          <p>
+            <strong>Accuracy:</strong> <span class="metric-highlight">97.32%</span> | 
+            <strong>F1 (macro):</strong> 0.6328 | 
+            <strong>ROC AUC:</strong> 0.8824
+          </p>
+          <div class="plot-grid">
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_confusion.png" alt="Gradient Boosting Confusion Matrix" />
+              <h4>Confusion Matrix</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_roc_benign.png" alt="ROC Benign" />
+              <h4>ROC Curve: Benign</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_roc_suspicious.png" alt="ROC Suspicious" />
+              <h4>ROC Curve: Suspicious</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_roc_malicious.png" alt="ROC Malicious" />
+              <h4>ROC Curve: Malicious</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_pr_benign.png" alt="PR Benign" />
+              <h4>Precision-Recall: Benign</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_pr_suspicious.png" alt="PR Suspicious" />
+              <h4>Precision-Recall: Suspicious</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/GradientBoosting_pr_malicious.png" alt="PR Malicious" />
+              <h4>Precision-Recall: Malicious</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="model-section">
+          <h3>XGBoost</h3>
+          <p>
+            <strong>Accuracy:</strong> <span class="metric-highlight">97.31%</span> | 
+            <strong>F1 (macro):</strong> 0.6327 | 
+            <strong>ROC AUC:</strong> 0.8823
+          </p>
+          <div class="plot-grid">
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/XGBoost_confusion.png" alt="XGBoost Confusion Matrix" />
+              <h4>Confusion Matrix</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/XGBoost_roc_benign.png" alt="ROC Benign" />
+              <h4>ROC Curve: Benign</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/XGBoost_roc_suspicious.png" alt="ROC Suspicious" />
+              <h4>ROC Curve: Suspicious</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/XGBoost_roc_malicious.png" alt="ROC Malicious" />
+              <h4>ROC Curve: Malicious</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="model-section">
+          <h3>LightGBM</h3>
+          <p>
+            <strong>Accuracy:</strong> <span class="metric-highlight">97.32%</span> | 
+            <strong>F1 (macro):</strong> 0.6328 | 
+            <strong>ROC AUC:</strong> 0.8824 |
+            <strong>Train Time:</strong> 4.14s
+          </p>
+          <div class="plot-grid">
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/LightGBM_confusion.png" alt="LightGBM Confusion Matrix" />
+              <h4>Confusion Matrix</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/LightGBM_roc_benign.png" alt="ROC Benign" />
+              <h4>ROC Curve: Benign</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/LightGBM_roc_suspicious.png" alt="ROC Suspicious" />
+              <h4>ROC Curve: Suspicious</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/LightGBM_roc_malicious.png" alt="ROC Malicious" />
+              <h4>ROC Curve: Malicious</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="model-section">
+          <h3>Random Forest</h3>
+          <p>
+            <strong>Accuracy:</strong> 90.73% | 
+            <strong>F1 (macro):</strong> 0.6025 | 
+            <strong>ROC AUC:</strong> 0.8813
+          </p>
+          <div class="plot-grid">
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/RandomForest_confusion.png" alt="Random Forest Confusion Matrix" />
+              <h4>Confusion Matrix</h4>
+            </div>
+            <div class="plot-card">
+              <img src="machine-learning-code/outputs/plots/RandomForest_roc_malicious.png" alt="ROC Malicious" />
+              <h4>ROC Curve: Malicious</h4>
+            </div>
+          </div>
+        </div>
+
+        <h3>4.3 Clustering Analysis</h3>
+        <p>
+          Unsupervised clustering (KMeans, k=5) revealed distinct certificate behavior patterns with a silhouette score of <span class="metric-highlight">0.9985</span>.
+        </p>
+        <div class="plot-card" style="max-width: 600px; margin: 24px auto;">
+          <img src="machine-learning-code/outputs/plots/kmeans_clusters.png" alt="KMeans Clustering" />
+          <h4>KMeans Clustering (PCA Projection)</h4>
+        </div>
+      </section>
+
+      <section id="discussion" class="research-section">
+        <h2>5. Discussion</h2>
+        <p>
+          Our results demonstrate that <strong>gradient boosting methods</strong> (GradientBoosting, HistGradientBoosting, XGBoost, LightGBM) consistently
+          outperform other approaches, achieving ~97% accuracy. Key observations:
+        </p>
+        <ul class="research-list">
+          <li><strong>Feature importance:</strong> Public key algorithm and signature hash choices proved highly discriminative for malware detection.</li>
+          <li><strong>Speed vs. accuracy trade-off:</strong> LightGBM and HistGradientBoosting offer near-identical performance to GradientBoosting while training 4-5× faster.</li>
+          <li><strong>Class imbalance:</strong> The "suspicious" class remains challenging, reflected in lower F1 scores. Future work should explore SMOTE or cost-sensitive learning.</li>
+          <li><strong>Neural networks (MLP):</strong> Underperformed compared to tree ensembles, likely due to limited feature engineering and small tabular dataset size.</li>
+        </ul>
+      </section>
+
+      <section id="conclusion" class="research-section">
+        <h2>6. Conclusion</h2>
+        <p>
+          TrustedChain demonstrates that <strong>certificate-level features alone</strong> can achieve high accuracy in malware detection,
+          providing a proactive defense layer before binary execution. Gradient boosting methods emerge as the optimal choice, balancing
+          accuracy, interpretability, and training efficiency.
+        </p>
+        <p>
+          Future work will focus on:
+        </p>
+        <ul class="research-list">
+          <li>Incorporating temporal features (certificate age, revocation timing)</li>
+          <li>Expanding issuer lineage graph analysis</li>
+          <li>Real-time scoring integration with endpoint security systems</li>
+          <li>Addressing class imbalance in the "suspicious" category</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

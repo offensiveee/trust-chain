@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TrustedChain data flow and ML pipeline" />
+  <title>TrustedChain | Data Flow & ML Pipeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="flow-page">
+  <div class="glow"></div>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">TC</div>
+        <div>
+          <p class="eyebrow">TrustedChain</p>
+          <h1>Data Flow & ML Pipeline</h1>
+        </div>
+      </div>
+      <nav class="desktop-nav">
+        <a href="index.html">Back to site</a>
+        <a href="#overview">Overview</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#operations">Operations</a>
+      </nav>
+    </header>
+
+    <main class="flow-content">
+      <section id="overview" class="glass flow-hero">
+        <div class="section__header">
+          <p class="eyebrow">Executive Summary</p>
+          <h2>Certificate reputation, built like a production ML system.</h2>
+          <p class="muted">
+            TrustedChain ingests public certificate transparency data and malware telemetry, enriches it with behavioral
+            signals, and outputs a calibrated trust score that maps to clear security actions.
+          </p>
+        </div>
+        <div class="flow-highlights">
+          <div class="flow-card">
+            <h4>Goal</h4>
+            <p>Stop malicious binaries by evaluating the *issuer + certificate lineage*, not just the file hash.</p>
+          </div>
+          <div class="flow-card">
+            <h4>Core Output</h4>
+            <p>Allow ✅ / Review ⚠️ / Quarantine 🚫 with confidence scores and reasons.</p>
+          </div>
+          <div class="flow-card">
+            <h4>Guarantee</h4>
+            <p>No sensitive files are exposed publicly; the ML code stays offline unless explicitly deployed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pipeline" class="glass flow-section">
+        <div class="section__header">
+          <p class="eyebrow">End-to-End Flow</p>
+          <h3>From raw certificates to actionable security decisions</h3>
+          <p class="muted">This reflects the *actual architecture* in the repo and avoids claims not implemented in runtime.</p>
+        </div>
+
+        <div class="flow-diagram">
+          <div class="flow-stage">
+            <span class="stage-label">Sources</span>
+            <div class="stage-card">
+              <h4>Certificate + Malware Signals</h4>
+              <ul>
+                <li>crt.sh (certificate transparency logs)</li>
+                <li>Malware feeds / sandbox labels</li>
+                <li>OSINT & issuer metadata</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flow-stage">
+            <span class="stage-label">Ingestion</span>
+            <div class="stage-card">
+              <h4>Scraper & Normalization</h4>
+              <ul>
+                <li>Rate-limited scraping with resume state</li>
+                <li>Schema normalization for certificates</li>
+                <li>Data stored in SQLite for fast iteration</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flow-stage">
+            <span class="stage-label">Enrichment</span>
+            <div class="stage-card">
+              <h4>Contextual Features</h4>
+              <ul>
+                <li>Issuer history & lineage graph</li>
+                <li>Revocation timing + re-use frequency</li>
+                <li>Sandbox detonation outcomes</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flow-stage">
+            <span class="stage-label">Modeling</span>
+            <div class="stage-card">
+              <h4>Offline ML Pipeline</h4>
+              <ul>
+                <li>Feature engineering + labeling</li>
+                <li>Training & evaluation notebooks</li>
+                <li>Model comparison + clustering outputs</li>
+              </ul>
+            </div>
+            <p class="muted mini-note">ML notebooks live in <code>machine-learning-code/</code> and are not executed by the production API unless explicitly wired in.</p>
+          </div>
+
+          <div class="flow-stage">
+            <span class="stage-label">Serving</span>
+            <div class="stage-card">
+              <h4>API & Dashboard</h4>
+              <ul>
+                <li>FastAPI service exposes insights</li>
+                <li>Dashboard visualizes trust trajectories</li>
+                <li>Admin console tracks telemetry</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flow-stage">
+            <span class="stage-label">Decision</span>
+            <div class="stage-card">
+              <h4>Security Verdicts</h4>
+              <ul>
+                <li>Allow / Review / Quarantine labels</li>
+                <li>Confidence + recommended action</li>
+                <li>Analyst-friendly explanations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="operations" class="glass flow-section">
+        <div class="section__header">
+          <p class="eyebrow">Operational Notes</p>
+          <h3>Performance & safety posture</h3>
+        </div>
+        <div class="flow-grid">
+          <div class="flow-card">
+            <h4>Performance</h4>
+            <p>Production runtime is lightweight (API + UI). ML training is offline and only runs when triggered.</p>
+          </div>
+          <div class="flow-card">
+            <h4>Security</h4>
+            <p>Ensure notebooks and outputs are not publicly served; keep training artifacts private.</p>
+          </div>
+          <div class="flow-card">
+            <h4>Data Governance</h4>
+            <p>Use rate limiting, caching, and provenance tracking to maintain compliance and reproducibility.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

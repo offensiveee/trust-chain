@@ -1,0 +1,74 @@
+[
+  {
+    "model": "LogisticRegression",
+    "accuracy": 0.9047143095119107,
+    "precision_macro": 0.595505640897911,
+    "recall_macro": 0.7177777777777777,
+    "f1_macro": 0.6011004284736193,
+    "roc_auc": 0.8808758925098027,
+    "train_time_sec": 17.560606956481934
+  },
+  {
+    "model": "RandomForest",
+    "accuracy": 0.907296351824088,
+    "precision_macro": 0.5967780301717797,
+    "recall_macro": 0.7189444444444445,
+    "f1_macro": 0.6025111197024022,
+    "roc_auc": 0.8813253149769973,
+    "train_time_sec": 3.0093798637390137
+  },
+  {
+    "model": "GradientBoosting",
+    "accuracy": 0.9731800766283525,
+    "precision_macro": 0.656268165084286,
+    "recall_macro": 0.614,
+    "f1_macro": 0.6327929242560679,
+    "roc_auc": 0.8823720879323887,
+    "train_time_sec": 19.856878995895386
+  },
+  {
+    "model": "HistGradientBoosting",
+    "accuracy": 0.9731800766283525,
+    "precision_macro": 0.656268165084286,
+    "recall_macro": 0.614,
+    "f1_macro": 0.6327929242560679,
+    "roc_auc": 0.8823720879323887,
+    "train_time_sec": 4.375427007675171
+  },
+  {
+    "model": "ExtraTrees",
+    "accuracy": 0.907296351824088,
+    "precision_macro": 0.5967780301717797,
+    "recall_macro": 0.7189444444444445,
+    "f1_macro": 0.6025111197024022,
+    "roc_auc": 0.8801081771108303,
+    "train_time_sec": 2.9547948837280273
+  },
+  {
+    "model": "MLP",
+    "accuracy": 0.947776111944028,
+    "precision_macro": 0.5944528774720896,
+    "recall_macro": 0.6239666666666667,
+    "f1_macro": 0.6078250981087031,
+    "roc_auc": 0.7431432739781928,
+    "train_time_sec": 54.042906284332275
+  },
+  {
+    "model": "XGBoost",
+    "accuracy": 0.9730967849408629,
+    "precision_macro": 0.6562368820433336,
+    "recall_macro": 0.6138333333333333,
+    "f1_macro": 0.632678513168096,
+    "roc_auc": 0.8823438781173892,
+    "train_time_sec": 5.506349086761475
+  },
+  {
+    "model": "LightGBM",
+    "accuracy": 0.9731800766283525,
+    "precision_macro": 0.656268165084286,
+    "recall_macro": 0.614,
+    "f1_macro": 0.6327929242560679,
+    "roc_auc": 0.8823535361802378,
+    "train_time_sec": 4.1396942138671875
+  }
+]
